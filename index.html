@@ -4,11 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>सखुआ डिजिटल गाँव</title>
-<!-- Firebase SDKs (v9.22.1 Compat) -->
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
+
+<!-- Firebase SDKs (Compat Versional Setup) -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",Arial,sans-serif;}
 html{scroll-behavior:smooth;}
@@ -212,19 +215,24 @@ header h1{ font-size:25px; }
 <p>हमारे गाँव का अपना डिजिटल मंच</p>
 <p>© 2026 सखुआ डिजिटल गाँव</p>
 </footer>
+
 <script>
-// Firebase Console (Project Settings) से अपने असली प्रोजेक्ट की डिटेल्स यहाँ डालें
+// आपकी नई Firebase Configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyYourActualApiKeyHere",
-  authDomain: "your-project-id.firebaseapp.com",
-  databaseURL: "https://your-project-id-default-rtdb.firebaseio.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project-id.appspot.com",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:abcdef1234567890"
+  apiKey: "AIzaSyBloXDyqFKFne-RjNZUVo4OOIIsmOBdFVw",
+  authDomain: "digital-village-852218.firebaseapp.com",
+  databaseURL: "https://digital-village-852218-default-rtdb.firebaseio.com",
+  projectId: "digital-village-852218",
+  storageBucket: "digital-village-852218.firebasestorage.app",
+  messagingSenderId: "176700825444",
+  appId: "1:176700825444:web:793a11af687492e3ae6471",
+  measurementId: "G-5KD7QZFCMH"
 };
 
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+
 const auth = firebase.auth();
 const database = firebase.database();
 const storage = firebase.storage();
@@ -455,360 +463,4 @@ async function deleteItem(id, imagePath) {
 </script>
 </body>
 </html>
-.red-btn{ background:#d32f2f; }
-.orange-btn{ background:#ef6c00; }
-.gray-btn{ background:#757575; }
-.form-box{background:#f8faf8;padding:15px;border-radius:12px;margin-top:15px;border:1px solid #e4e4e4;}
-.form-group{ margin-bottom:12px; }
-.form-group label{ display:block; margin-bottom:5px; font-weight:bold; font-size:13px; }
-.form-group input, .form-group select, .form-group textarea{width:100%;padding:11px;border:1px solid #ccc;border-radius:8px;font-size:14px;outline:none;}
-.form-group textarea{ min-height:90px; resize:vertical; }
-.item{border:1px solid #ddd;padding:12px;border-radius:12px;margin-bottom:12px;background:#fff;}
-.item img{width:100%;max-height:250px;object-fit:cover;border-radius:10px;margin-bottom:10px;}
-.item h3{ color:#1b5e20; font-size:17px; margin-bottom:5px; }
-.item p{ font-size:13px; margin:3px 0; }
-.badge{display:inline-block;padding:5px 8px;border-radius:15px;font-size:11px;font-weight:bold;background:#e8f5e9;color:#1b5e20;margin-bottom:5px;}
-.buy-badge{ background:#fff3e0; color:#e65100; }
-.admin-box{ display:none; }
-.admin-item{background:#fafafa;border:1px solid #ddd;border-radius:10px;padding:12px;margin-bottom:10px;}
-.preview{width:100%;max-height:220px;object-fit:cover;border-radius:10px;display:none;margin-top:8px;}
-.status{text-align:center;font-size:12px;color:#777;margin:10px 0;}
-.small{ font-size:11px; color:#777; margin-top:8px; }
-table{ width:100%; border-collapse:collapse; margin-top:10px; }
-th,td{ border:1px solid #ddd; padding:10px 7px; text-align:left; font-size:13px; }
-th{ background:#e8f5e9; color:#1b5e20; }
-.service-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
-.service{ border:1px solid #e1e1e1; border-radius:12px; padding:14px; background:#fafafa; }
-.service strong{ color:#1b5e20; }
-.call-btn{display:block; background:#25D366; color:white;padding:8px 12px; border-radius:7px; text-decoration:none;font-size:12px; font-weight:bold; margin-top:9px; text-align:center;}
-footer{ background:#263238; color:white; text-align:center; padding:28px 15px; margin-top:30px; }
-footer p{ font-size:13px; line-height:1.7; }
-@media(max-width:600px){
-header h1{ font-size:25px; }
-.quick-grid{ grid-template-columns:repeat(4,1fr); gap:6px; }
-.quick span:last-child{ font-size:9px; }
-.service-grid{ grid-template-columns:1fr; }
-.btn{ width:100%; }
-}
-</style>
-</head>
-<body>
-<header id="home">
-<div class="logo">🌾</div>
-<h1>सखुआ डिजिटल गाँव</h1>
-<p>हमारे गाँव का अपना डिजिटल मंच</p>
-<p>जानकारी • सेवा • बाजार • शिक्षा • सुविधा</p>
-</header>
-<nav>
-<a href="#home">होम</a>
-<a href="#notice">सूचना</a>
-<a href="#mandi">मंडी भाव</a>
-<a href="#haat">हाट-बाज़ार</a>
-<a href="#services">सेवाएँ</a>
-<a href="#yojana">योजनाएँ</a>
-<a href="#admin" id="adminNav" style="display:none;">Admin Panel</a>
-</nav>
-<div class="container">
-<div class="search-box">
-<input type="search" id="search" placeholder="🔍 गाँव में कुछ खोजें..." oninput="searchPage()">
-</div>
-<div class="quick-grid">
-<a class="quick" href="#mandi"><span class="icon">📊</span><span>मंडी भाव</span></a>
-<a class="quick" href="#haat"><span class="icon">🛒</span><span>हाट-बाज़ार</span></a>
-<a class="quick" href="#services"><span class="icon">📞</span><span>जरूरी नंबर</span></a>
-<a class="quick" href="#yojana"><span class="icon">🏛️</span><span>योजनाएँ</span></a>
-</div>
-<!-- NOTICE -->
-<div class="card notice" id="notice">
-<h2>📢 गाँव की ताज़ा सूचना</h2>
-<p id="noticeText">सखुआ गाँव के सभी निवासियों का स्वागत है। यह डिजिटल पोर्टल गाँव की जानकारी और सुविधा के लिए बनाया गया है।</p>
-<button class="btn" onclick="speakText('noticeText')">🔊 सूचना सुनें</button>
-<button class="btn gray-btn" onclick="stopSpeech()">⏹️ बंद करें</button>
-<button class="btn share-btn" onclick="shareOnWhatsApp(document.getElementById('noticeText').innerText)">📲 शेयर करें</button>
-</div>
-<!-- MANDI -->
-<div class="card" id="mandi">
-<h2>📊 आज का मंडी भाव</h2>
-<p class="small">⚠️ अभी ये उदाहरण के भाव हैं। स्थानीय मंडी के असली भाव मिलने पर बदलें।</p>
-<table>
-<tr><th>फसल</th><th>भाव</th></tr>
-<tr><td>🌾 धान</td><td>₹ 2,180 – ₹ 2,300</td></tr>
-<tr><td>🌾 गेहूं</td><td>₹ 2,250 – ₹ 2,400</td></tr>
-<tr><td>🌻 सरसों</td><td>₹ 5,000 – ₹ 5,400</td></tr>
-<tr><td>🌽 मक्का</td><td>₹ 2,000 – ₹ 2,200</td></tr>
-</table>
-</div>
-<!-- MARKET -->
-<div class="card" id="haat">
-<h2>🛒 सखुआ हाट-बाज़ार</h2>
-<p>गाँव में कोई सामान बेचना है या कोई सामान खरीदना है? यहाँ पोस्ट करें।</p>
-<div class="form-box">
-<h3>➕ नई पोस्ट डालें</h3>
-<div class="form-group">
-<label>क्या करना है?</label>
-<select id="itemType">
-<option value="sell">🟢 सामान बेचना है</option>
-<option value="buy">🟠 सामान खरीदना है</option>
-</select>
-</div>
-<div class="form-group">
-<label>सामान का नाम</label>
-<input type="text" id="itemName" maxlength="80" placeholder="जैसे: बकरी, गेहूं, ट्रैक्टर">
-</div>
-<div class="form-group">
-<label>श्रेणी</label>
-<select id="itemCategory">
-<option value="पशु">🐄 पशु</option>
-<option value="खेती">🌾 खेती</option>
-<option value="वाहन">🚜 वाहन</option>
-<option value="घर का सामान">🏠 घर का सामान</option>
-<option value="अन्य">📦 अन्य</option>
-</select>
-</div>
-<div class="form-group">
-<label>कीमत / बजट</label>
-<input type="text" id="itemPrice" maxlength="30" placeholder="जैसे ₹5000 या ₹4000-5000">
-</div>
-<div class="form-group">
-<label>मात्रा</label>
-<input type="text" id="itemQuantity" maxlength="50" placeholder="जैसे 1 बकरी / 5 क्विंटल">
-</div>
-<div class="form-group">
-<label>विवरण</label>
-<textarea id="itemDescription" maxlength="500" placeholder="सामान की जरूरी जानकारी लिखें..."></textarea>
-</div>
-<div class="form-group">
-<label>मोबाइल नंबर</label>
-<input type="tel" id="itemPhone" maxlength="10" inputmode="numeric" placeholder="10 अंकों का मोबाइल नंबर">
-</div>
-<div class="form-group">
-<label>📷 सामान की फोटो (Optional)</label>
-<input type="file" id="itemImage" accept="image/*" onchange="previewImage(event)">
-<img id="imagePreview" class="preview">
-<p class="small">फोटो 5 MB से कम रखें।</p>
-</div>
-<button class="btn" id="submitBtn" onclick="addItem()">📤 पोस्ट भेजें</button>
-<p class="small">आपकी पोस्ट पहले जाँच (Admin Approval) के लिए जाएगी। मंजूर होने पर ही सबको दिखेगी।</p>
-</div>
-<div class="status" id="loadingStatus">🔄 सामान लोड हो रहा है...</div>
-<div id="itemList"></div>
-</div>
-<!-- SERVICES -->
-<div class="card" id="services">
-<h2>📞 गाँव की जरूरी सेवाएँ</h2>
-<div class="service-grid">
-<div class="service">
-<strong>🔧 बिजली मिस्त्री</strong>
-<a href="tel:9876543210" class="call-btn">📞 कॉल करें</a>
-</div>
-<div class="service">
-<strong>🚜 ट्रैक्टर सेवा</strong>
-<a href="tel:9876543211" class="call-btn">📞 कॉल करें</a>
-</div>
-<div class="service">
-<strong>🏥 स्वास्थ्य सहायता</strong>
-<a href="tel:108" class="call-btn">📞 108</a>
-</div>
-<div class="service">
-<strong>🚓 आपातकालीन सहायता</strong>
-<a href="tel:112" class="call-btn">📞 112</a>
-</div>
-</div>
-</div>
-<!-- YOJANA -->
-<div class="card" id="yojana">
-<h2>🏛️ सरकारी योजनाएँ</h2>
-<p>यहाँ गाँव के लोगों के लिए सरकारी योजनाओं की जानकारी बाद में जोड़ी जा सकती है।</p>
-<p class="small">उदाहरण: किसान योजना • छात्रवृत्ति • राशन • आवास • पेंशन</p>
-</div>
-<!-- ADMIN -->
-<div class="card admin-box" id="admin">
-<h2>🔐 Admin Panel</h2>
-<p id="adminUid" style="word-break:break-all; margin-bottom:10px; font-weight:bold; color:#14532d;"></p>
-<div id="adminItems">🔄 Pending पोस्ट लोड हो रही हैं...</div>
-</div>
-</div>
-<footer>
-<p>🌾 <strong>सखुआ डिजिटल गाँव</strong></p>
-<p>हमारे गाँव का अपना डिजिटल मंच</p>
-<p>© 2026 सखुआ डिजिटल गाँव</p>
-</footer>
-<script>
-const firebaseConfig = {
-apiKey: "YOUR_API_KEY",
-authDomain: "YOUR_PROJECT.firebaseapp.com",
-databaseURL: "https://YOUR_PROJECT_DEFAULT_RTDB.firebaseio.com",
-projectId: "YOUR_PROJECT_ID",
-storageBucket: "YOUR_PROJECT.appspot.com",
-messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-appId: "YOUR_APP_ID"
-};
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const database = firebase.database();
-const storage = firebase.storage();
-let currentUser = null;
-let isAdminUser = false;
-auth.signInAnonymously().catch(err => alert("Auth Error: " + err.message));
-auth.onAuthStateChanged(user => {
-if (user) {
-currentUser = user;
-document.getElementById("adminUid").innerHTML = `🆔 आपका UID: <code>${user.uid}</code> <br><span class="small">(Admin बनने के लिए इसे Firebase Database के admins नोड में डालें)</span>`;
-database.ref("admins/" + user.uid).on('value', snapshot => {
-if(snapshot.exists() && snapshot.val() === true) {
-isAdminUser = true;
-document.getElementById("admin").style.display = "block";
-document.getElementById("adminNav").style.display = "inline-block";
-loadAdminItems();
-} else {
-isAdminUser = false;
-document.getElementById("admin").style.display = "none";
-document.getElementById("adminNav").style.display = "none";
-}
-});
-loadApprovedItems();
-}
-});
-function speakText(id) {
-const text = document.getElementById(id).innerText;
-if ('speechSynthesis' in window) {
-window.speechSynthesis.cancel();
-const msg = new SpeechSynthesisUtterance(text);
-msg.lang = 'hi-IN';
-window.speechSynthesis.speak(msg);
-} else {
-alert("आपका ब्राउज़र आवाज़ सपोर्ट नहीं करता है।");
-}
-}
-function stopSpeech() {
-if ('speechSynthesis' in window) {
-window.speechSynthesis.cancel();
-}
-}
-function shareOnWhatsApp(text) {
-window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
-}
-function searchPage() {
-const query = document.getElementById("search").value.toLowerCase();
-const cards = document.querySelectorAll(".card");
-cards.forEach(card => {
-if(card.innerText.toLowerCase().includes(query)) {
-card.style.display = "block";
-} else {
-card.style.display = "none";
-}
-});
-}
-function previewImage(e) {
-const file = e.target.files[0];
-const img = document.getElementById("imagePreview");
-if (file) {
-if(file.size > 5 * 1024 * 1024) {
-alert("फोटो 5 MB से छोटी चुनें!");
-e.target.value = "";
-img.style.display = "none";
-return;
-}
-img.src = URL.createObjectURL(file);
-img.style.display = "block";
-} else {
-img.style.display = "none";
-}
-}
-async function addItem() {
-if(!currentUser) { alert("कनेक्शन स्थापित हो रहा है, कृपया 2 सेकंड रुकें..."); return; }
-const type = document.getElementById("itemType").value;
-const name = document.getElementById("itemName").value.trim();
-const category = document.getElementById("itemCategory").value;
-const price = document.getElementById("itemPrice").value.trim();
-const quantity = document.getElementById("itemQuantity").value.trim();
-const description = document.getElementById("itemDescription").value.trim();
-const phone = document.getElementById("itemPhone").value.trim();
-const fileInput = document.getElementById("itemImage");
-const file = fileInput.files[0];
-if(name.length < 2) { alert("कृपया सही सामान का नाम डालें!"); return; }
-if(!/^[6-9][0-9]{9}$/.test(phone)) { alert("कृपया 10 अंकों का सही मोबाइल नंबर डालें!"); return; }
-const submitBtn = document.getElementById("submitBtn");
-submitBtn.disabled = true;
-submitBtn.innerText = "⏳ अपलोड हो रहा है...";
-let imageUrl = "";
-let imagePath = "";
-try {
-if(file) {
-const fileName = Date.now() + "_" + file.name;
-imagePath = `itemImages/${currentUser.uid}/${fileName}`;
-const storageRef = storage.ref(imagePath);
-await storageRef.put(file);
-imageUrl = await storageRef.getDownloadURL();
-}
-const newItemKey = database.ref().child('items').push().key;
-const itemData = {
-type: type,
-name: name,
-category: category,
-price: price || "संपर्क करें",
-quantity: quantity || "1",
-description: description || "कोई विवरण नहीं",
-phone: phone,
-imageUrl: imageUrl,
-imagePath: imagePath,
-ownerUid: currentUser.uid,
-status: "pending",
-createdAt: firebase.database.ServerValue.TIMESTAMP
-};
-await database.ref('items/' + newItemKey).set(itemData);
-alert("✅ आपकी पोस्ट सबमिट हो गई है! Admin की मंजूरी के बाद यह लाइव दिखेगी।");
-document.getElementById("itemName").value = "";
-document.getElementById("itemPrice").value = "";
-document.getElementById("itemQuantity").value = "";
-document.getElementById("itemDescription").value = "";
-document.getElementById("itemPhone").value = "";
-fileInput.value = "";
-document.getElementById("imagePreview").style.display = "none";
-} catch(err) {
-alert("अपलोड में समस्या आई: " + err.message);
-} finally {
-submitBtn.disabled = false;
-submitBtn.innerText = "📤 पोस्ट भेजें";
-}
-}
-function loadApprovedItems() {
-database.ref("items").orderByChild("status").equalTo("approved").on('value', snapshot => {
-const itemList = document.getElementById("itemList");
-const statusDiv = document.getElementById("loadingStatus");
-statusDiv.style.display = "none";
-itemList.innerHTML = "";
-if(!snapshot.exists()) {
-itemList.innerHTML = "<p class='small' style='text-align:center;'>अभी कोई सामान लिस्टेड नहीं है।</p>";
-return;
-}
-let items = [];
-snapshot.forEach(child => {
-items.push({ id: child.key, ...child.val() });
-});
-items.sort((a,b) => b.createdAt - a.createdAt);
-items.forEach(item => {
-const isBuy = item.type === 'buy';
-const badgeText = isBuy ? "🟠 खरीदना है" : "🟢 बेचना है";
-const badgeClass = isBuy ? "badge buy-badge" : "badge";
-let imgHtml = item.imageUrl ? `<img src="${item.imageUrl}" alt="${item.name}">` : "";
-const div = document.createElement("div");
-div.className = "item";
-div.innerHTML = `
-<span class="${badgeClass}">${badgeText}</span>
-<span class="badge" style="background:#f0f0f0; color:#333;">${item.category}</span>
-${imgHtml}
-<h3>${item.name}</h3>
-<p><strong>मूल्य/बजट:</strong> ${item.price}</p>
-<p><strong>मात्रा:</strong> ${item.quantity}</p>
-<p><strong>विवरण:</strong> ${item.description}</p>
-<p><strong>संपर्क:</strong> <a href="tel:${item.phone}">${item.phone}</a></p>
-`;
-itemList.appendChild(div);
-});
-});
-}
-</script>
-</body>
-  </html>
-  
+
