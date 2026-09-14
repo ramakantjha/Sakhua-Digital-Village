@@ -2,1274 +2,431 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>आदर्श सखुआ डिजिटल गाँव</title>
-<meta name="description" content="आदर्श सखुआ डिजिटल गाँव - गाँव की सूचना, बाजार, सेवा और सुविधा का डिजिटल मंच">
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:"Segoe UI",Arial,sans-serif;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  background:#f4f7f4;
-  color:#263238;
-}
-
-header{
-  background:linear-gradient(135deg,#14532d,#2e7d32,#43a047);
-  color:white;
-  padding:30px 18px 38px;
-  text-align:center;
-}
-
-.logo{
-  font-size:45px;
-  margin-bottom:5px;
-}
-
-header h1{
-  font-size:29px;
-  font-weight:800;
-}
-
-header p{
-  margin-top:8px;
-  font-size:14px;
-  opacity:.92;
-}
-
-nav{
-  background:white;
-  display:flex;
-  gap:7px;
-  padding:10px;
-  position:sticky;
-  top:0;
-  z-index:100;
-  overflow-x:auto;
-  box-shadow:0 2px 10px rgba(0,0,0,.12);
-}
-
-nav a{
-  text-decoration:none;
-  color:#2e7d32;
-  font-size:12px;
-  font-weight:bold;
-  padding:8px 12px;
-  border-radius:20px;
-  white-space:nowrap;
-}
-
-nav a:hover{
-  background:#e8f5e9;
-}
-
-.container{
-  width:min(900px,92%);
-  margin:20px auto;
-}
-
-.search-box{
-  background:white;
-  padding:14px;
-  border-radius:15px;
-  box-shadow:0 3px 12px rgba(0,0,0,.07);
-  margin-bottom:18px;
-}
-
-.search-box input{
-  width:100%;
-  border:1px solid #ddd;
-  outline:none;
-  padding:13px;
-  border-radius:10px;
-  font-size:15px;
-}
-
-.quick-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:9px;
-  margin-bottom:20px;
-}
-
-.quick{
-  background:white;
-  padding:14px 5px;
-  text-align:center;
-  border-radius:13px;
-  text-decoration:none;
-  color:#263238;
-  box-shadow:0 2px 9px rgba(0,0,0,.07);
-}
-
-.quick .icon{
-  font-size:24px;
-  display:block;
-  margin-bottom:5px;
-}
-
-.quick span:last-child{
-  font-size:11px;
-  font-weight:bold;
-}
-
-.card{
-  background:white;
-  padding:20px;
-  margin-bottom:20px;
-  border-radius:16px;
-  box-shadow:0 3px 12px rgba(0,0,0,.07);
-  border-left:5px solid #2e7d32;
-}
-
-.card h2{
-  color:#1b5e20;
-  font-size:20px;
-  margin-bottom:13px;
-}
-
-.card p{
-  line-height:1.7;
-  font-size:14px;
-}
-
-.notice{
-  background:linear-gradient(135deg,#fff8e1,#fff3cd);
-  border-left-color:#ff9800;
-}
-
-.notice h2{
-  color:#e65100;
-}
-
-.btn{
-  display:inline-block;
-  margin-top:13px;
-  padding:11px 16px;
-  background:#2e7d32;
-  color:white;
-  text-decoration:none;
-  border-radius:8px;
-  font-weight:700;
-  border:none;
-  cursor:pointer;
-  font-size:13px;
-}
-
-.btn:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
-
-.share-btn{
-  background:#25D366;
-}
-
-.red-btn{
-  background:#d32f2f;
-}
-
-.orange-btn{
-  background:#ef6c00;
-}
-
-.gray-btn{
-  background:#757575;
-}
-
-.telegram-btn{
-  background:#229ED9;
-}
-
-.form-box{
-  background:#f8faf8;
-  padding:15px;
-  border-radius:12px;
-  margin-top:15px;
-  border:1px solid #e4e4e4;
-}
-
-.form-group{
-  margin-bottom:12px;
-}
-
-.form-group label{
-  display:block;
-  margin-bottom:5px;
-  font-weight:bold;
-  font-size:13px;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea{
-  width:100%;
-  padding:11px;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font-size:14px;
-  outline:none;
-}
-
-.form-group textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-.item{
-  border:1px solid #ddd;
-  padding:12px;
-  border-radius:12px;
-  margin-bottom:12px;
-  background:#fff;
-}
-
-.item.hidden{
-  display:none;
-}
-
-.item img{
-  width:100%;
-  max-height:250px;
-  object-fit:cover;
-  border-radius:10px;
-  margin:10px 0;
-}
-
-.item h3{
-  color:#1b5e20;
-  font-size:17px;
-  margin-bottom:5px;
-}
-
-.item p{
-  font-size:13px;
-  margin:3px 0;
-}
-
-.badge{
-  display:inline-block;
-  padding:5px 8px;
-  border-radius:15px;
-  font-size:11px;
-  font-weight:bold;
-  background:#e8f5e9;
-  color:#1b5e20;
-  margin-bottom:5px;
-}
-
-.buy-badge{
-  background:#fff3e0;
-  color:#e65100;
-}
-
-.admin-box{
-  display:none;
-}
-
-.admin-item{
-  background:#fafafa;
-  border:1px solid #ddd;
-  border-radius:10px;
-  padding:12px;
-  margin-bottom:10px;
-}
-
-.admin-item img{
-  max-width:150px;
-  max-height:120px;
-  object-fit:cover;
-  border-radius:8px;
-  margin:7px 0;
-}
-
-.preview{
-  width:100%;
-  max-height:220px;
-  object-fit:cover;
-  border-radius:10px;
-  display:none;
-  margin-top:8px;
-}
-
-.status{
-  text-align:center;
-  font-size:12px;
-  color:#777;
-  margin:10px 0;
-}
-
-.small{
-  font-size:11px;
-  color:#777;
-  margin-top:8px;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:10px;
-}
-
-th,td{
-  border:1px solid #ddd;
-  padding:10px 7px;
-  text-align:left;
-  font-size:13px;
-}
-
-th{
-  background:#e8f5e9;
-  color:#1b5e20;
-}
-
-.service-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-}
-
-.service{
-  border:1px solid #e1e1e1;
-  border-radius:12px;
-  padding:14px;
-  background:#fafafa;
-}
-
-.service strong{
-  color:#1b5e20;
-}
-
-.call-btn{
-  display:block;
-  background:#25D366;
-  color:white;
-  padding:8px 12px;
-  border-radius:7px;
-  text-decoration:none;
-  font-size:12px;
-  font-weight:bold;
-  margin-top:9px;
-  text-align:center;
-}
-
-.contact-row{
-  display:flex;
-  gap:8px;
-  margin-top:10px;
-}
-
-.contact-row a{
-  flex:1;
-  text-align:center;
-  padding:9px;
-  border-radius:7px;
-  text-decoration:none;
-  color:white;
-  font-size:12px;
-  font-weight:bold;
-}
-
-.call-link{
-  background:#2e7d32;
-}
-
-.telegram-link{
-  background:#229ED9;
-}
-
-.empty-message{
-  text-align:center;
-  padding:15px;
-  color:#777;
-  font-size:13px;
-}
-
-footer{
-  background:#263238;
-  color:white;
-  text-align:center;
-  padding:28px 15px;
-  margin-top:30px;
-}
-
-footer p{
-  font-size:13px;
-  line-height:1.7;
-}
-
-@media(max-width:600px){
-
-  header h1{
-    font-size:25px;
-  }
-
-  .quick-grid{
-    grid-template-columns:repeat(4,1fr);
-    gap:6px;
-  }
-
-  .quick span:last-child{
-    font-size:9px;
-  }
-
-  .service-grid{
-    grid-template-columns:1fr;
-  }
-
-  .btn{
-    width:100%;
-  }
-
-  .contact-row{
-    flex-direction:column;
-  }
-}
+*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}
+body{background:#f4f7f4;color:#263238}
+header{background:linear-gradient(135deg,#14532d,#43a047);color:#fff;text-align:center;padding:24px 12px}
+header h1{font-size:23px}
+header p{margin-top:6px;font-size:13px}
+nav{position:sticky;top:0;z-index:5;background:#fff;display:flex;gap:6px;padding:9px;overflow:auto;box-shadow:0 2px 5px #0002}
+nav a{text-decoration:none;color:#2e7d32;font-size:12px;font-weight:bold;padding:7px 11px;border-radius:15px;white-space:nowrap}
+.container{width:min(800px,92%);margin:15px auto}
+.card{background:#fff;padding:15px;border-radius:12px;margin-bottom:15px;box-shadow:0 2px 8px #0000000d}
+h2{font-size:18px;margin-bottom:8px}
+h3{font-size:16px}
+.form{background:#f8f8f8;padding:10px;border-radius:9px}
+.group{margin-bottom:9px}
+label{display:block;font-size:12px;font-weight:bold;margin-bottom:4px}
+input,select,textarea{width:100%;padding:9px;border:1px solid #ccc;border-radius:7px;font-size:13px}
+textarea{min-height:65px;resize:vertical}
+.btn{border:0;border-radius:7px;padding:9px 12px;color:#fff;font-weight:bold;font-size:12px;margin:5px 3px 0 0;cursor:pointer}
+.green{background:#2e7d32}.red{background:#d32f2f}.blue{background:#229ed9}.gray{background:#757575}
+.item{border:1px solid #ddd;border-radius:9px;padding:10px;margin-top:10px}
+.item img{width:100%;max-height:220px;object-fit:cover;border-radius:7px;margin:7px 0}
+.badge{display:inline-block;background:#e8f5e9;color:#1b5e20;padding:4px 8px;border-radius:12px;font-size:10px;font-weight:bold}
+.buy{background:#fff3e0;color:#e65100}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #ddd;padding:8px;font-size:12px;text-align:left}
+th{background:#e8f5e9}
+.small{font-size:11px;color:#777}
 </style>
 </head>
 
 <body>
 
-<header id="home">
-  <div class="logo">🌾</div>
-  <h1>आदर्श सखुआ डिजिटल गाँव</h1>
-  <p>हमारे गाँव का अपना डिजिटल मंच</p>
-  <p>जानकारी • सेवा • बाजार • शिक्षा • सुविधा</p>
+<header>
+<h1>🌾 आदर्श सखुआ डिजिटल गाँव</h1>
+<p>जानकारी • सेवा • बाजार • सुविधा</p>
 </header>
 
 <nav>
-  <a href="#home">होम</a>
-  <a href="#notice">सूचना</a>
-  <a href="#mandi">मंडी भाव</a>
-  <a href="#haat">हाट-बाज़ार</a>
-  <a href="#services">सेवाएँ</a>
-  <a href="#yojana">योजनाएँ</a>
-  <a href="#problem">शिकायत</a>
-  <a href="#admin" id="adminNav" style="display:none;">Admin</a>
+<a href="#notice">सूचना</a>
+<a href="#mandi">मंडी भाव</a>
+<a href="#haat">हाट-बाज़ार</a>
+<a href="#services">सेवाएँ</a>
+<a href="#problem">शिकायत</a>
+<a href="#admin" id="adminNav" style="display:none">Admin</a>
 </nav>
 
 <div class="container">
 
-<!-- SEARCH -->
-<div class="search-box">
-  <input
-    type="search"
-    id="search"
-    placeholder="🔍 गाँव में कुछ खोजें..."
-    oninput="searchPage()">
+<div class="card">
+<input id="search" type="search" placeholder="🔍 बाजार में खोजें..." oninput="searchItems()">
 </div>
 
-<!-- QUICK BUTTONS -->
-<div class="quick-grid">
-
-  <a class="quick" href="#mandi">
-    <span class="icon">📊</span>
-    <span>मंडी भाव</span>
-  </a>
-
-  <a class="quick" href="#haat">
-    <span class="icon">🛒</span>
-    <span>हाट-बाज़ार</span>
-  </a>
-
-  <a class="quick" href="#services">
-    <span class="icon">📞</span>
-    <span>जरूरी नंबर</span>
-  </a>
-
-  <a class="quick" href="#yojana">
-    <span class="icon">🏛️</span>
-    <span>योजनाएँ</span>
-  </a>
-
+<div class="card" id="notice" style="background:#fff8e1">
+<h2>📢 गाँव की सूचना</h2>
+<p id="noticeText">सखुआ गाँव के डिजिटल पोर्टल में आपका स्वागत है।</p>
+<button class="btn green" onclick="speakNotice()">🔊 सुनें</button>
+<button class="btn gray" onclick="stopSpeech()">⏹️ बंद</button>
 </div>
 
-<!-- NOTICE -->
-<div class="card notice" id="notice">
-
-  <h2>📢 गाँव की ताज़ा सूचना</h2>
-
-  <p id="noticeText">
-    सखुआ गाँव के सभी निवासियों का स्वागत है।
-    यह डिजिटल पोर्टल गाँव की जानकारी और सुविधा के लिए बनाया गया है।
-  </p>
-
-  <button class="btn" onclick="speakText('noticeText')">
-    🔊 सूचना सुनें
-  </button>
-
-  <button class="btn gray-btn" onclick="stopSpeech()">
-    ⏹️ बंद करें
-  </button>
-
-  <button class="btn share-btn" onclick="shareNotice('noticeText')">
-    📲 शेयर करें
-  </button>
-
-</div>
-
-<!-- MANDI -->
+<!-- मंडी भाव SECTION (Dynamic) -->
 <div class="card" id="mandi">
-
-  <h2>📊 आज का मंडी भाव</h2>
-
-  <p class="small">
-    ⚠️ ये अभी उदाहरण के भाव हैं। स्थानीय मंडी के असली भाव मिलने पर इन्हें अपडेट करें।
-  </p>
-
-  <table>
-
-    <tr>
-      <th>फसल</th>
-      <th>भाव</th>
-    </tr>
-
-    <tr>
-      <td>🌾 धान</td>
-      <td>₹ 2,180 – ₹ 2,300</td>
-    </tr>
-
-    <tr>
-      <td>🌾 गेहूं</td>
-      <td>₹ 2,250 – ₹ 2,400</td>
-    </tr>
-
-    <tr>
-      <td>🌻 सरसों</td>
-      <td>₹ 5,000 – ₹ 5,400</td>
-    </tr>
-
-    <tr>
-      <td>🌽 मक्का</td>
-      <td>₹ 2,000 – ₹ 2,200</td>
-    </tr>
-
-  </table>
-
+<h2>📊 मंडी भाव</h2>
+<table>
+<tr><th>फसल</th><th>भाव</th></tr>
+<tr><td>🌾 धान</td><td id="ricePriceShow">लोड हो रहा है...</td></tr>
+<tr><td>🌾 गेहूं</td><td id="wheatPriceShow">लोड हो रहा है...</td></tr>
+</table>
 </div>
 
-<!-- MARKET -->
 <div class="card" id="haat">
+<h2>🛒 सखुआ हाट-बाज़ार</h2>
 
-  <h2>🛒 सखुआ हाट-बाज़ार</h2>
-
-  <p>
-    गाँव में कोई सामान बेचना है या कोई सामान खरीदना है?
-    यहाँ पोस्ट करें।
-  </p>
-
-  <div class="form-box">
-
-    <h3>➕ नई पोस्ट डालें</h3>
-
-    <div class="form-group">
-      <label>क्या करना है?</label>
-
-      <select id="itemType">
-        <option value="sell">🟢 सामान बेचना है</option>
-        <option value="buy">🟠 सामान खरीदना है</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>सामान का नाम</label>
-
-      <input
-        type="text"
-        id="itemName"
-        maxlength="80"
-        placeholder="जैसे: बकरी, गेहूं, ट्रैक्टर">
-    </div>
-
-    <div class="form-group">
-      <label>श्रेणी</label>
-
-      <select id="itemCategory">
-
-        <option value="पशु">🐄 पशु</option>
-        <option value="खेती">🌾 खेती</option>
-        <option value="वाहन">🚜 वाहन</option>
-        <option value="घर का सामान">🏠 घर का सामान</option>
-        <option value="अन्य">📦 अन्य</option>
-
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>कीमत / बजट</label>
-
-      <input
-        type="text"
-        id="itemPrice"
-        maxlength="30"
-        placeholder="जैसे ₹5000 या ₹4000-5000">
-    </div>
-
-    <div class="form-group">
-      <label>मात्रा</label>
-
-      <input
-        type="text"
-        id="itemQuantity"
-        maxlength="50"
-        placeholder="जैसे 1 बकरी / 5 क्विंटल">
-    </div>
-
-    <div class="form-group">
-      <label>विवरण</label>
-
-      <textarea
-        id="itemDescription"
-        maxlength="500"
-        placeholder="सामान की जरूरी जानकारी लिखें..."></textarea>
-    </div>
-
-    <div class="form-group">
-      <label>मोबाइल नंबर</label>
-
-      <input
-        type="tel"
-        id="itemPhone"
-        maxlength="10"
-        inputmode="numeric"
-        placeholder="10 अंकों का मोबाइल नंबर">
-    </div>
-
-    <div class="form-group">
-
-      <label>📷 सामान की फोटो (Optional)</label>
-
-      <input
-        type="file"
-        id="itemImage"
-        accept="image/*"
-        onchange="previewImage(event)">
-
-      <img
-        id="imagePreview"
-        class="preview">
-
-      <p class="small">
-        फोटो अपने-आप छोटा करके अपलोड की जाएगी।
-      </p>
-
-    </div>
-
-    <button
-      class="btn"
-      id="submitBtn"
-      onclick="addItem()">
-
-      📤 पोस्ट भेजें
-
-    </button>
-
-    <p class="small">
-      आपकी पोस्ट पहले Admin की जाँच के लिए जाएगी।
-      मंजूर होने के बाद ही सभी लोगों को दिखाई देगी।
-    </p>
-
-  </div>
-
-  <div
-    class="status"
-    id="loadingStatus">
-
-    🔄 सामान लोड हो रहा है...
-
-  </div>
-
-  <div id="itemList"></div>
-
+<div class="form">
+<div class="group">
+<label>प्रकार</label>
+<select id="itemType">
+<option value="sell">🟢 बेचना है</option>
+<option value="buy">🟠 खरीदना है</option>
+</select>
 </div>
 
-<!-- SERVICES -->
+<div class="group">
+<label>सामान / जरूरत</label>
+<input id="itemName" placeholder="बकरी, गेहूं, ट्रैक्टर...">
+</div>
+
+<div class="group">
+<label>कीमत / बजट</label>
+<input id="itemPrice" placeholder="₹5000">
+</div>
+
+<div class="group">
+<label>मात्रा</label>
+<input id="itemQty" placeholder="जैसे 5 क्विंटल / 2 बकरी">
+</div>
+
+<div class="group">
+<label>विवरण</label>
+<textarea id="itemDesc" placeholder="सामान या जरूरत की पूरी जानकारी..."></textarea>
+</div>
+
+<div class="group">
+<label>फोन नंबर</label>
+<input id="itemPhone" type="tel" inputmode="numeric" maxlength="10" placeholder="10 अंकों का नंबर">
+</div>
+
+<div class="group">
+<label>फोटो (वैकल्पिक, अधिकतम 5MB)</label>
+<input id="itemImage" type="file" accept="image/*">
+</div>
+
+<button id="submitBtn" class="btn green" onclick="addItem()">📤 पोस्ट भेजें</button>
+</div>
+
+<p id="status" class="small" style="text-align:center;margin:10px">🔄 कनेक्ट हो रहा है...</p>
+<div id="itemList"></div>
+</div>
+
 <div class="card" id="services">
-
-  <h2>📞 गाँव की जरूरी सेवाएँ</h2>
-
-  <div class="service-grid">
-
-    <div class="service">
-
-      <strong>🔧 बिजली मिस्त्री</strong>
-
-      <a
-        href="tel:9876543210"
-        class="call-btn">
-
-        📞 कॉल करें
-
-      </a>
-
-    </div>
-
-    <div class="service">
-
-      <strong>🚜 ट्रैक्टर सेवा</strong>
-
-      <a
-        href="tel:9876543211"
-        class="call-btn">
-
-        📞 कॉल करें
-
-      </a>
-
-    </div>
-
-    <div class="service">
-
-      <strong>🏥 स्वास्थ्य सहायता</strong>
-
-      <a
-        href="tel:108"
-        class="call-btn">
-
-        📞 108
-
-      </a>
-
-    </div>
-
-    <div class="service">
-
-      <strong>🚓 आपातकालीन सहायता</strong>
-
-      <a
-        href="tel:112"
-        class="call-btn">
-
-        📞 112
-
-      </a>
-
-    </div>
-
-  </div>
-
-  <p class="small">
-    ⚠️ बिजली मिस्त्री और ट्रैक्टर सेवा के नंबर अभी उदाहरण हैं।
-    वेबसाइट लाइव करने से पहले अपने सही नंबर डालें।
-  </p>
-
+<h2>📞 जरूरी सेवाएँ</h2>
+<p>🔧 बिजली मिस्त्री: <a href="tel:9876543210">9876543210</a></p>
+<p style="margin-top:7px">🏥 स्वास्थ्य: <a href="tel:108">108</a> | 🚓 पुलिस: <a href="tel:112">112</a></p>
 </div>
 
-<!-- YOJANA -->
-<div class="card" id="yojana">
-
-  <h2>🏛️ सरकारी योजनाएँ</h2>
-
-  <p>
-    यहाँ गाँव के लोगों के लिए सरकारी योजनाओं की जानकारी जोड़ी जा सकती है।
-  </p>
-
-  <p class="small">
-    उदाहरण: किसान योजना • छात्रवृत्ति • राशन • आवास • पेंशन
-  </p>
-
-</div>
-
-<!-- TELEGRAM PROBLEM REPORT -->
 <div class="card" id="problem">
-
-  <h2>⚠️ गड़बड़ी / शिकायत</h2>
-
-  <p>
-    वेबसाइट में कोई समस्या, गलत जानकारी या कोई जरूरी शिकायत हो
-    तो हमारे Telegram ग्रुप में बताएं।
-  </p>
-
-  <a
-    href="https://t.me/+4-xg8iaH7ethMDU1"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="btn telegram-btn">
-
-    ✈️ Telegram पर शिकायत करें
-
-  </a>
-
-  <p class="small">
-    Telegram पर जाने के लिए ऊपर दिए गए बटन पर क्लिक करें।
-  </p>
-
+<h2>⚠️ शिकायत</h2>
+<p class="small">गाँव की किसी समस्या की जानकारी Telegram पर भेजें।</p>
+<a class="btn blue" href="https://t.me/+4-xg8iaH7ethMDU1" target="_blank" rel="noopener">✈️ Telegram पर बताएं</a>
 </div>
 
-<!-- ADMIN -->
-<div class="card admin-box" id="admin">
+<!-- ADMIN PANEL -->
+<div class="card" id="admin" style="display:none;border:2px solid #d32f2f">
+<h2>🔐 Admin Panel</h2>
 
-  <h2>🔐 Admin Panel</h2>
+<!-- मंडी भाव एडिट विकल्प -->
+<div style="background:#fff8e1;padding:10px;border-radius:8px;margin:10px 0">
+<h3>📊 मंडी भाव बदलें</h3>
+<br>
+<input id="ricePrice" placeholder="धान का भाव (जैसे ₹2400 – ₹2500)">
+<br><br>
+<input id="wheatPrice" placeholder="गेहूं का भाव (जैसे ₹2600 – ₹2750)">
+<br><br>
+<button class="btn green" onclick="saveMandi()">💾 मंडी भाव सेव करें</button>
+</div>
 
-  <p
-    id="adminUid"
-    style="word-break:break-all;margin-bottom:10px;font-weight:bold;color:#14532d;">
-  </p>
-
-  <div id="adminItems">
-    🔄 Pending पोस्ट लोड हो रही हैं...
-  </div>
-
+<p class="small">नई पोस्ट की जाँच करें:</p>
+<div id="adminItems">लोड हो रहा है...</div>
 </div>
 
 </div>
-
-<footer>
-
-  <p>
-    🌾 <strong>आदर्श सखुआ डिजिटल गाँव</strong>
-  </p>
-
-  <p>
-    हमारे गाँव का अपना डिजिटल मंच
-  </p>
-
-  <p>
-    जानकारी • सेवा • बाजार • शिक्षा • सुविधा
-  </p>
-
-  <p>
-    © 2026 आदर्श सखुआ डिजिटल गाँव
-  </p>
-
-</footer>
-
 
 <script>
-
-/* =====================================================
-   FIREBASE CONFIG
-===================================================== */
-
-const firebaseConfig = {
-
-  apiKey: "AIzaSyBloXDyqFKFne-RjNZUVo4OOIIsmOBdFVw",
-
-  authDomain:
-    "digital-village-852218.firebaseapp.com",
-
-  databaseURL:
-    "https://digital-village-852218-default-rtdb.firebaseio.com",
-
-  projectId:
-    "digital-village-852218",
-
-  storageBucket:
-    "digital-village-852218.firebasestorage.app",
-
-  messagingSenderId:
-    "176700825444",
-
-  appId:
-    "1:176700825444:web:793a11af687492e3ae6471"
-
+const firebaseConfig={
+apiKey:"AIzaSyBloXDyqFKfne-RjNZUVo4OOIIsmOBdFVw",
+authDomain:"digital-village-852218.firebaseapp.com",
+databaseURL:"https://digital-village-852218-default-rtdb.firebaseio.com",
+projectId:"digital-village-852218",
+storageBucket:"digital-village-852218.firebasestorage.app",
+messagingSenderId:"176700825444",
+appId:"1:176700825444:web:793a11af687492e3ae6471"
 };
 
-
-/* =====================================================
-   FIREBASE START
-===================================================== */
-
 firebase.initializeApp(firebaseConfig);
+const db=firebase.database(),storage=firebase.storage(),auth=firebase.auth();
+let uid=null,isAdmin=false;
 
-const auth = firebase.auth();
-
-const database = firebase.database();
-
-const storage = firebase.storage();
-
-let currentUser = null;
-
-let isAdminUser = false;
-
-
-/* =====================================================
-   ANONYMOUS LOGIN
-===================================================== */
-
-auth.signInAnonymously()
-.catch(function(error){
-
-  console.error("Firebase Login Error:", error);
-
-  alert(
-    "Firebase कनेक्शन नहीं हो पाया। " +
-    "Firebase में Anonymous Authentication चालू है या नहीं जाँचें।"
-  );
-
+auth.onAuthStateChanged(user=>{
+if(!user)return;
+uid=user.uid;
+document.getElementById("status").textContent="🟢 ऑनलाइन कनेक्टेड";
+checkAdmin();
+loadApproved();
+loadMandi();
 });
 
-
-/* =====================================================
-   AUTH STATE
-===================================================== */
-
-auth.onAuthStateChanged(function(user){
-
-  if(!user){
-    return;
-  }
-
-  currentUser = user;
-
-  const uidBox = document.getElementById("adminUid");
-
-  if(uidBox){
-
-    uidBox.innerHTML =
-      "🆔 आपका UID: <code>" +
-      escapeHtml(user.uid) +
-      "</code><br>" +
-      "<span class='small'>" +
-      "Admin बनाने के लिए Firebase Database में " +
-      "admins/" + escapeHtml(user.uid) +
-      " को true करें।" +
-      "</span>";
-
-  }
-
-
-  database.ref("admins/" + user.uid).on(
-    "value",
-    function(snapshot){
-
-      if(snapshot.exists() && snapshot.val() === true){
-
-        isAdminUser = true;
-
-        document.getElementById("admin").style.display =
-          "block";
-
-        document.getElementById("adminNav").style.display =
-          "inline-block";
-
-        loadAdminItems();
-
-      }
-      else{
-
-        isAdminUser = false;
-
-        document.getElementById("admin").style.display =
-          "none";
-
-        document.getElementById("adminNav").style.display =
-          "none";
-
-      }
-
-    }
-  );
-
-
-  loadApprovedItems();
-
+auth.signInAnonymously().catch(e=>{
+document.getElementById("status").textContent="🔴 Firebase Login बंद है";
+console.error(e);
 });
 
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHtml(value){
-
-  const div = document.createElement("div");
-
-  div.textContent =
-    value == null ? "" : String(value);
-
-  return div.innerHTML;
-
+function checkAdmin(){
+db.ref("admins/"+uid).once("value").then(s=>{
+isAdmin=s.val()===true;
+if(isAdmin){
+document.getElementById("admin").style.display="block";
+document.getElementById("adminNav").style.display="inline-block";
+loadPending();
+}
+});
 }
 
-
-/* =====================================================
-   SPEECH
-===================================================== */
-
-function speakText(id){
-
-  const element =
-    document.getElementById(id);
-
-  if(!element){
-    return;
-  }
-
-  const text =
-    element.innerText;
-
-  if("speechSynthesis" in window){
-
-    window.speechSynthesis.cancel();
-
-    const msg =
-      new SpeechSynthesisUtterance(text);
-
-    msg.lang = "hi-IN";
-
-    const voices =
-      window.speechSynthesis.getVoices();
-
-    const hindiVoice =
-      voices.find(function(voice){
-
-        return voice.lang &&
-               voice.lang.toLowerCase().includes("hi");
-
-      });
-
-    if(hindiVoice){
-      msg.voice = hindiVoice;
-    }
-
-    window.speechSynthesis.speak(msg);
-
-  }
-  else{
-
-    alert(
-      "आपका ब्राउज़र आवाज़ सपोर्ट नहीं करता है।"
-    );
-
-  }
-
+function clean(x){
+return String(x??"").replace(/[&<>"']/g,m=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",
+'"':"&quot;","'":"&#039;"
+}[m]));
 }
 
+function addItem(){
+const type=itemType.value;
+const name=document.getElementById("itemName").value.trim();
+const price=document.getElementById("itemPrice").value.trim();
+const qty=document.getElementById("itemQty").value.trim();
+const desc=document.getElementById("itemDesc").value.trim();
+const phone=document.getElementById("itemPhone").value.trim();
+const file=document.getElementById("itemImage").files[0];
 
-function stopSpeech(){
+if(name.length<2){ alert("सामान/जरूरत का नाम डालें!"); return; }
+if(!/^[6-9][0-9]{9}$/.test(phone)){ alert("10 अंकों का सही मोबाइल नंबर डालें!"); return; }
+if(file&&file.size>5*1024*1024){ alert("फोटो 5MB से छोटी होनी चाहिए!"); return; }
 
-  if("speechSynthesis" in window){
+const btn=document.getElementById("submitBtn");
+btn.disabled=true;
+btn.textContent="भेजा जा रहा है...";
 
-    window.speechSynthesis.cancel();
+let imageUrl="",imagePath="";
 
-  }
-
+(async()=>{
+try{
+if(file){
+imagePath="images/"+uid+"/"+Date.now()+".jpg";
+const ref=storage.ref(imagePath);
+await ref.put(file,{contentType:file.type});
+imageUrl=await ref.getDownloadURL();
 }
 
+await db.ref("pending_items").push({
+type:type,
+name:name,
+price:price||"संपर्क करें",
+quantity:qty||"",
+description:desc||"",
+phone:phone,
+imageUrl:imageUrl,
+imagePath:imagePath,
+ownerUid:uid,
+createdAt:firebase.database.ServerValue.TIMESTAMP
+});
 
-/* =====================================================
-   SHARE
-===================================================== */
-
-function shareNotice(id){
-
-  const element =
-    document.getElementById(id);
-
-  if(!element){
-    return;
-  }
-
-  const text =
-    element.innerText;
-
-  const pageUrl =
-    window.location.href;
-
-  const fullShareText =
-    text +
-    "\n\nआदर्श सखुआ डिजिटल गाँव:\n" +
-    pageUrl;
-
-
-  if(navigator.share){
-
-    navigator.share({
-
-      title:
-        "आदर्श सखुआ डिजिटल गाँव",
-
-      text:
-        fullShareText
-
-    }).catch(function(){
-
-      openWhatsAppShare(fullShareText);
-
-    });
-
-  }
-  else{
-
-    openWhatsAppShare(fullShareText);
-
-  }
-
+alert("✅ पोस्ट भेज दी गई!\nAdmin मंज़ूर करने के बाद सभी लोगों को दिखाई देगी।");
+document.getElementById("itemName").value="";
+document.getElementById("itemPrice").value="";
+document.getElementById("itemQty").value="";
+document.getElementById("itemDesc").value="";
+document.getElementById("itemPhone").value="";
+document.getElementById("itemImage").value="";
+}catch(e){
+alert("❌ पोस्ट नहीं गई: "+e.message);
+}finally{
+btn.disabled=false;
+btn.textContent="📤 पोस्ट भेजें";
+}
+})();
 }
 
+function loadApproved(){
+db.ref("approved_items").on("value",snap=>{
+const box=document.getElementById("itemList");
+box.innerHTML="";
 
-function openWhatsAppShare(text){
-
-  const url =
-    "https://api.whatsapp.com/send?text=" +
-    encodeURIComponent(text);
-
-  window.open(
-    url,
-    "_blank",
-    "noopener,noreferrer"
-  );
-
+if(!snap.exists()){
+box.innerHTML="<p class='small'>अभी कोई पोस्ट नहीं है।</p>";
+return;
 }
 
+snap.forEach(c=>{
+const x=c.val();
+const buy=x.type==="buy";
 
-/* =====================================================
-   SEARCH
-===================================================== */
+const d=document.createElement("div");
+d.className="item";
 
-function searchPage(){
+d.innerHTML=
+"<span class='badge "+(buy?"buy":"")+"'>"+
+(buy?"🟠 खरीदना है":"🟢 बेचना है")+
+"</span>"+
+(x.imageUrl?"<img src='"+clean(x.imageUrl)+"'>":"")+
+"<h3>"+clean(x.name)+"</h3>"+
+"<p><b>कीमत/बजट:</b> "+clean(x.price)+"</p>"+
+(x.quantity?"<p><b>मात्रा:</b> "+clean(x.quantity)+"</p>":"")+
+(x.description?"<p><b>विवरण:</b> "+clean(x.description)+"</p>":"")+
+"<p><b>फोन:</b> <a href='tel:"+clean(x.phone)+"'>"+clean(x.phone)+"</a></p>"+
+"<button class='btn blue' onclick='shareItem("+JSON.stringify(x.name)+","+JSON.stringify(x.price)+")'>📤 शेयर</button>"+
+(isAdmin?
+"<button class='btn red' onclick='deleteApproved("+JSON.stringify(c.key)+","+JSON.stringify(x.imagePath||"")+")'>🗑️ डिलीट</button>"
+:"");
 
-  const query =
-    document
-      .getElementById("search")
-      .value
-      .trim()
-      .toLowerCase();
-
-  const items =
-    document.querySelectorAll(".item");
-
-  items.forEach(function(item){
-
-    const text =
-      item.innerText.toLowerCase();
-
-    if(!query || text.includes(query)){
-
-      item.classList.remove("hidden");
-
-    }
-    else{
-
-      item.classList.add("hidden");
-
-    }
-
-  });
-
+box.appendChild(d);
+});
+});
 }
 
+function loadPending(){
+db.ref("pending_items").on("value",snap=>{
+const box=document.getElementById("adminItems");
+box.innerHTML="";
 
-/* =====================================================
-   IMAGE PREVIEW
-===================================================== */
-
-function previewImage(event){
-
-  const file =
-    event.target.files[0];
-
-  const img =
-    document.getElementById("imagePreview");
-
-  if(!file){
-
-    img.style.display =
-      "none";
-
-    return;
-
-  }
-
-
-  if(!file.type.startsWith("image/")){
-
-    alert(
-      "कृपया केवल फोटो चुनें।"
-    );
-
-    event.target.value = "";
-
-    img.style.display =
-      "none";
-
-    return;
-
-  }
-
-
-  if(file.size > 10 * 1024 * 1024){
-
-    alert(
-      "फोटो 10 MB से छोटी चुनें।"
-    );
-
-    event.target.value = "";
-
-    img.style.display =
-      "none";
-
-    return;
-
-  }
-
-
-  const url =
-    URL.createObjectURL(file);
-
-  img.src = url;
-
-  img.style.display =
-    "block";
-
+if(!snap.exists()){
+box.innerHTML="<p class='small'>कोई Pending पोस्ट नहीं है।</p>";
+return;
 }
 
+snap.forEach(c=>{
+const x=c.val(),id=c.key;
+const d=document.createElement("div");
+d.className="item";
 
-/* =====================================================
-   IMAGE COMPRESS
-===================================================== */
+d.innerHTML=
+"<span class='badge "+(x.type==="buy"?"buy":"")+"'>"+
+(x.type==="buy"?"🟠 खरीदना है":"🟢 बेचना है")+
+"</span>"+
+(x.imageUrl?"<img src='"+clean(x.imageUrl)+"'>":"")+
+"<h3>"+clean(x.name)+"</h3>"+
+"<p>💰 "+clean(x.price)+"</p>"+
+(x.quantity?"<p>📦 "+clean(x.quantity)+"</p>":"")+
+(x.description?"<p>📝 "+clean(x.description)+"</p>":"")+
+"<p>📞 "+clean(x.phone)+"</p>"+
+"<button class='btn green' onclick='approveItem("+JSON.stringify(id)+")'>✅ मंज़ूर</button>"+
+"<button class='btn red' onclick='rejectItem("+JSON.stringify(id)+","+JSON.stringify(x.imagePath||"")+")'>❌ डिलीट</button>";
 
-function compressImage(file){
+box.appendChild(d);
+});
+});
+}
 
-  return new Promise(function(resolve,reject){
+async function approveItem(id){
+if(!isAdmin)return alert("Access denied");
+try{
+const s=await db.ref("pending_items/"+id).once("value");
+if(!s.exists())return;
+const x=s.val();
 
-    const reader =
-      new FileReader();
+await db.ref("approved_items/"+id).set({
+type:x.type,
+name:x.name,
+price:x.price,
+quantity:x.quantity||"",
+description:x.description||"",
+phone:x.phone,
+imageUrl:x.imageUrl||"",
+imagePath:x.imagePath||"",
+createdAt:x.createdAt||Date.now()
+});
 
-    reader.onload = function(event){
+await db.ref("pending_items/"+id).remove();
+alert("✅ पोस्ट मंज़ूर हो गई!");
+}catch(e){ alert("❌ Error: "+e.message); }
+}
 
-      const img =
-        new Image();
+async function rejectItem(id,path){
+if(!isAdmin)return;
+if(!confirm("इस पोस्ट को डिलीट करें?"))return;
+try{
+if(path){ try{await storage.ref(path).delete()}catch(e){} }
+await db.ref("pending_items/"+id).remove();
+}catch(e){ alert("❌ Error: "+e.message); }
+}
 
-      img.onload = function(){
+async function deleteApproved(id,path){
+if(!isAdmin)return alert("Access denied");
+if(!confirm("इस Approved पोस्ट को डिलीट करें?"))return;
+try{
+if(path){ try{await storage.ref(path).delete()}catch(e){} }
+await db.ref("approved_items/"+id).remove();
+alert("✅ पोस्ट डिलीट हो गई!");
+}catch(e){ alert("❌ डिलीट नहीं हुई: "+e.message); }
+}
 
-        const maxWidth = 1200;
+function loadMandi(){
+db.ref("mandi").on("value",s=>{
+const x=s.val()||{};
+document.getElementById("ricePriceShow").textContent=x.rice||"भाव उपलब्ध नहीं";
+document.getElementById("wheatPriceShow").textContent=x.wheat||"भाव उपलब्ध नहीं";
 
-        let width =
-          img.width;
+if(isAdmin){
+document.getElementById("ricePrice").value=x.rice||"";
+document.getElementById("wheatPrice").value=x.wheat||"";
+}
+});
+}
 
-        let height =
-          img.height;
+async function saveMandi(){
+if(!isAdmin)return alert("Access denied");
+const rice=document.getElementById("ricePrice").value.trim();
+const wheat=document.getElementById("wheatPrice").value.trim();
 
+try{
+await db.ref("mandi").set({
+rice:rice,
+wheat:wheat,
+updatedAt:firebase.database.ServerValue.TIMESTAMP
+});
+alert("✅ मंडी भाव अपडेट हो गया!");
+}catch(e){ alert("❌ मंडी भाव सेव नहीं हुआ: "+e.message); }
+}
 
-        if(width > maxWidth){
+function shareItem(name,price){
+const text="🛒 सखुआ हाट-बाज़ार\n"+name+"\n💰 "+price+"\n🌾 आदर्श सखुआ डिजिटल गाँव";
+if(navigator.share){ navigator.share({title:"सखुआ हाट-बाज़ार",text:text}).catch(()=>{}); }
+else{ navigator.clipboard?.writeText(text); alert("✅ जानकारी कॉपी हो गई।"); }
+}
 
-          height =
-            Math.round(
-              height * maxWidth / width
-            );
+function searchItems(){
+const q=document.getElementById("search").value.toLowerCase();
+document.querySelectorAll("#itemList .item").forEach(x=>{
+x.style.display=x.innerText.toLowerCase().includes(q)?"block":"none";
+});
+}
 
-          width =
-            maxWidth;
+function speakNotice(){
+const u=new SpeechSynthesisUtterance(document.getElementById("noticeText").innerText);
+u.lang="hi-IN";
+speechSynthesis.speak(u);
+}
 
-        }
+function stopSpeech(){ speechSynthesis.cancel(); }
+</script>
+</body>
+</html>
 
-
-       
